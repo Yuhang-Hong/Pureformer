@@ -1,0 +1,3 @@
+python train.py --data_path dataset/ --source_name Dioni --target_name Loukia  --re_ratio 1 --training_sample_ratio 0.5  --batch_size 256 --seed 344;
+python train.py --data_path dataset/ --source_name Houston13 --target_name Houston18 --re_ratio 5 --training_sample_ratio 0.8  --batch_size 256 --seed 344;
+python train.py --data_path dataset/ --source_name paviaU --target_name paviaC --re_ratio 1 --training_sample_ratio 0.5  --batch_size 256 --seed 344;
