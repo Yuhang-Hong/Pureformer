@@ -129,10 +129,6 @@ class ImageReconstructor(nn.Module):
 
 
 class Pureformer(nn.Module):
-    """大幅简化的自蒸馏Vision Transformer，适用于高光谱图像
-    核心改进：embed_dim=256, depth=3, num_heads=4, mlp_ratio=2
-    显著减少参数量同时保留自蒸馏机制
-    添加对抗性特征纯化：分类任务和重建任务共享特征，形成自对抗"""
     def __init__(self, img_size=13, patch_size=1, in_channels=103, num_classes=7,
                  embed_dim=256, depth=3, num_heads=4, mlp_ratio=2, dropout=0.1, use_reconstruction=True):
         super().__init__()
