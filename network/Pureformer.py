@@ -413,5 +413,4 @@ class PureformerTrainer:
         # 为了兼容后续 numpy 计算（如混淆矩阵），再转成 numpy 返回
         all_preds_np = all_preds_tensor.cpu().numpy()
         all_labels_np = all_labels_tensor.cpu().numpy()
-
         return accuracy, all_preds_np, all_labels_np
