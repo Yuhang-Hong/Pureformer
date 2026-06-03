@@ -1,8 +1,8 @@
 # Purifying Domain-Invariant Representations via Adversarial Decoupling for Hyperspectral Image Generalization
 
-The Pytorch Implementation of “Purifying Domain-Invariant Representations via Adversarial Decoupling for Hyperspectral Image Generalization”.
+The Pytorch Implementation of “Purifying Domain-Invariant Representations via Adversarial Decoupling for Hyperspectral Image Generalization”. 
 
-
+This paper **has been submitted to** IEEE TCSVT.
 
 ## Requirements
 
