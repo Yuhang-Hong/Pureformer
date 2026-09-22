@@ -6,6 +6,7 @@ import time
 import numpy as np
 import argparse
 from datetime import datetime
+from copy import deepcopy
 import torch
 from torch.utils.data import DataLoader
 from utils import confusion_matrix_gpu, kappa_coefficient_gpu, tpr_gpu
@@ -183,7 +184,7 @@ def main():
     tmp = args.training_sample_ratio * args.re_ratio * sample_num_src / sample_num_tar
 
     # 获取数据集信息
-    num_classes = gt_src.max()
+    num_classes = int(gt_src.max())
     n_bands = img_src.shape[-1]
 
     print(f"源域: {args.source_name}, 目标域: {args.target_name}")
@@ -214,7 +215,7 @@ def main():
         val_gt_src = val_gt_src_con
 
     # 创建hyperparams字典
-    hyperparams = vars(args)
+    hyperparams = vars(args).copy()
     hyperparams.update({
         'ignored_labels': ignored_labels,
         'n_classes': num_classes,
@@ -296,11 +297,6 @@ def main():
         train_acc, _, _ = trainer.evaluate(train_loader)
         train_eval_time = time.time() - train_eval_start_time
 
-        # epoch 时间计算
-        epoch_time = time.time() - epoch_start_time
-        training_times.append(epoch_time)
-        avg_epoch_time = np.mean(training_times)
-
         # 验证集评估开始
         val_start_time = time.time()
         val_acc, _, _ = trainer.evaluate(val_loader)
@@ -316,12 +312,13 @@ def main():
 
         # 测试阶段（如果需要）
         test_time = 0.0
+        test_acc = 0.0
         if epoch % args.log_interval == 0:
-            # test_start_time = time.time()
+            test_start_time = time.time()
             # 加载保存的最优模型权重进行测试
             if os.path.exists(os.path.join(save_dir, 'best_model.pth')):
                 # 保存当前模型状态
-                current_state = model.state_dict()
+                current_state = deepcopy(model.state_dict())
                 # 加载最优模型权重
                 model.load_state_dict(torch.load(
                     os.path.join(save_dir, 'best_model.pth')))
@@ -331,6 +328,14 @@ def main():
                 # 恢复当前模型状态
                 model.load_state_dict(current_state)
 
+            test_time = time.time() - test_start_time
+
+        # 统计到测试结束的轮次耗时，包含训练、训练集评估、验证和测试
+        epoch_time = time.time() - epoch_start_time
+        training_times.append(epoch_time)
+        avg_epoch_time = np.mean(training_times)
+
+        if epoch % args.log_interval == 0:
             # 将 numpy 结果转为 GPU tensor
             test_preds_tensor = torch.from_numpy(test_preds).to(device)
             test_labels_tensor = torch.from_numpy(test_labels).to(device)
@@ -373,8 +378,6 @@ def main():
 
             print(
                 f"Epoch {epoch}: 目标域OA={test_acc:.4f}, Kappa={kappa:.4f}, 平均训练时间={avg_training_time:.2f}s")
-        else:
-            test_acc = 0.0
 
         # 记录日志
         if use_tensorboard:
