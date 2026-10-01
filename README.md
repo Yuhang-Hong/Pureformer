@@ -4,7 +4,7 @@ The Pytorch Implementation of “Purifying Domain-Invariant Representations via 
 
 🎉🎉🎉 This paper has been accepted by IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)!
 
-Pureformer Paper: [![IEEE](https://img.shields.io/badge/IEEE_Xplore-Early_Access-blue?logo=ieee&logoColor=white)](https://ieeexplore.ieee.org/document/11712257)
+Pureformer Paper: [![IEEE](https://img.shields.io/badge/IEEE-Xplore-blue)](https://ieeexplore.ieee.org/document/11712257)
 
 ## Overview
 
