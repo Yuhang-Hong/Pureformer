@@ -2,7 +2,13 @@
 
 The Pytorch Implementation of “Purifying Domain-Invariant Representations via Adversarial Decoupling for Hyperspectral Image Generalization”. 
 
-This paper **has been submitted to** IEEE TCSVT.
+🎉🎉🎉 This paper has been accepted by IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)!
+
+Pureformer Paper: [![IEEE](https://img.shields.io/badge/IEEE_Xplore-Early_Access-blue?logo=ieee&logoColor=white)](https://ieeexplore.ieee.org/document/11712257)
+
+## Overview
+
+![Pureformer architecture](Figures/Pureformer.png)
 
 ## Requirements
 
@@ -86,6 +92,19 @@ dataset
    ```shell
    python train.py --data_path dataset/ --source_name paviaU --target_name paviaC --re_ratio 1 --training_sample_ratio 0.5  --batch_size 256 --seed 344
    ```
+## Citation
 
+If you find this project useful, please consider citing:
 
-
+```bibtex
+@ARTICLE{11712257,
+  author={Hong, Yuhang and Feng, Zhixi and Yang, Shuyuan},
+  journal={IEEE Transactions on Circuits and Systems for Video Technology},
+  title={Purifying Domain-Invariant Representations via Adversarial Decoupling for Hyperspectral Image Generalization},
+  year={2026},
+  volume={},
+  number={},
+  pages={1-1},
+  keywords={Modeling;Purification;Training;Optimization;Hyperspectral imaging;Timing;Image classification;Grounding;Labeling;Visualization;Hyperspectral Image;Domain Generalization;Adversarial Decoupling;Self-Knowledge Distillation},
+  doi={10.1109/TCSVT.2026.3737979}}
+```
